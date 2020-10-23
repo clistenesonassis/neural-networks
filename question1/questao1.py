@@ -31,7 +31,7 @@ model.add(keras.layers.Dense(8, activation=tf.nn.softmax))
 
 model.compile(optimizer='adam',loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
-history = model.fit(x_train, y_train, epochs=10, validation_data = (x_val, y_val))
+history = model.fit(x_train, y_train, epochs=30, validation_data = (x_val, y_val))
 
 
 #  "Accuracy"

@@ -41,9 +41,9 @@ for i in range(0,2000):
 #         line += 1
 
 data_x = np.asarray(x_train)
-data_y = np.asarray(y_train_1step)
+# data_y = np.asarray(y_train_1step)
 # data_y = np.asarray(y_train_2step)
-# data_y = np.asarray(y_train_3step)
+data_y = np.asarray(y_train_3step)
 
 x_train, x_val = np.split(data_x, 2)
 y_train, y_val = np.split(data_y, 2)
@@ -59,7 +59,7 @@ model.add(keras.layers.Dense(1, activation=tf.nn.tanh))
 
 model.compile(optimizer='adam',loss='mse', metrics=['mse'])
 
-history = model.fit(x_train, y_train,  epochs=1000, validation_data = (x_val, y_val))
+history = model.fit(x_train, y_train,  epochs=100, validation_data = (x_val, y_val))
 
 
 #  "Accuracy"
