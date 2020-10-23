@@ -20,20 +20,23 @@ import math
 #             thewriter.writerow({'c1' : lista[0], 'c2':lista[1], 'c3':lista[2], 'y':val_y})
 
 
-def get_random():
-    x = random.uniform(0.1, 4)
-    y = math.sin(math.pi*x)/(math.pi*x)
-    return [x, round(y,2)]
+# def get_random():
+#     x = random.uniform(0.1, 4)
+#     y = math.sin(math.pi*x)/(math.pi*x)
+#     return [x, round(y,2)]
 
-def create_dataset(x):
+# def create_dataset(x):
 
-    with open('dados.csv', 'w', newline='') as f:
-        fieldnames = ['x', 'y']
-        thewriter = csv.DictWriter(f, fieldnames=fieldnames)
-        thewriter.writeheader()
-        for i in range(0,x):
-            lista = get_random()
-            thewriter.writerow({'x' : lista[0], 'y':lista[1]})
+#     with open('dados.csv', 'w', newline='') as f:
+#         fieldnames = ['x', 'y']
+#         thewriter = csv.DictWriter(f, fieldnames=fieldnames)
+#         thewriter.writeheader()
+#         for i in range(0,x):
+#             lista = get_random()
+#             thewriter.writerow({'x' : lista[0], 'y':lista[1]})
+
+
+
 
 
 
