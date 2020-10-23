@@ -82,6 +82,7 @@ color_indices = data_y
 colormap = matplotlib.colors.ListedColormap(colors)
 
 plt.scatter(x, y, c=color_indices, cmap=colormap)
+plt.show()
 
 data_x = np.array(data_x)
 data_y = np.array(data_y)
@@ -98,10 +99,10 @@ model.add(keras.layers.Dense(8, activation=tf.nn.softmax))
 
 model.compile(optimizer='adam',loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
-history = model.fit(x_train, y_train, epochs=10, validation_data = (x_val, y_val))
+history = model.fit(x_train, y_train, epochs=30, validation_data = (x_val, y_val))
 
-validation_arr = model.evaluate(np.array([[-0.01,-0.2]]), np.array([2]))
-print("Validation loss: " + str(validation_arr[0]) + "\nValidation accuracy: " + str(validation_arr[1]))
+# validation_arr = model.evaluate(np.array([[-0.01,-0.2]]), np.array([2]))
+# print("Validation loss: " + str(validation_arr[0]) + "\nValidation accuracy: " + str(validation_arr[1]))
 
 plt.plot(history.history['accuracy']) 
 plt.plot(history.history['val_accuracy']) 
