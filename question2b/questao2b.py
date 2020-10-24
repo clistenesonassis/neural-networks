@@ -28,12 +28,11 @@ model = keras.models.Sequential()
 
 model.add(keras.layers.Dense(1))
 model.add(keras.layers.Dense(32, activation=tf.nn.tanh))
-model.add(keras.layers.Dense(32, activation=tf.nn.tanh))
-model.add(keras.layers.Dense(32, activation=tf.nn.tanh))
-model.add(keras.layers.Dense(32, activation=tf.nn.tanh))
-model.add(keras.layers.Dense(32, activation=tf.nn.tanh))
-model.add(keras.layers.Dense(32, activation=tf.nn.tanh))
-model.add(keras.layers.Dense(1, activation=tf.nn.tanh))
+model.add(keras.layers.Dense(16, activation=tf.nn.tanh))
+model.add(keras.layers.Dense(8, activation=tf.nn.tanh))
+model.add(keras.layers.Dense(4, activation=tf.nn.tanh))
+model.add(keras.layers.Dense(2, activation=tf.nn.tanh))
+model.add(keras.layers.Dense(1, activation=tf.keras.activations.linear))
 
 model.compile(optimizer='SGD',loss='mse', metrics=['mse'])
 

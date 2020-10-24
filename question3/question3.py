@@ -7,9 +7,10 @@ import tensorflow as tf
 import matplotlib
 import matplotlib.pyplot as plt
 import random 
-import numpy as np
 import seaborn as sn
 import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report, confusion_matrix
 
 
 def isInsideCircle(x, y):
@@ -45,7 +46,7 @@ data_y = []
 count = np.zeros(15)
 
 
-while (len(data_x) < 50000):
+while (len(data_x) < 20000):
   pointX = random.uniform(-1,1)
   pointY = random.uniform(-1,1)
 
@@ -91,6 +92,9 @@ data_y = np.array(data_y)
 x_train, x_val = np.split(data_x, 2)
 y_train, y_val = np.split(data_y, 2)
 
+data_X, x_test, data_Y, y_test = train_test_split(data_x, data_y, test_size=0.20, random_state=42)
+x_train, x_val, y_train, y_val = train_test_split(data_X, data_Y, test_size=0.25, random_state=42)
+
 model = keras.models.Sequential()
 
 model.add(keras.layers.Dense(2))
@@ -101,7 +105,7 @@ model.add(keras.layers.Dense(8, activation=tf.nn.softmax))
 
 model.compile(optimizer='adam',loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
-history = model.fit(x_train, y_train, epochs=100, validation_data = (x_val, y_val))
+history = model.fit(x_train, y_train, epochs=50, validation_data = (x_val, y_val))
 
 # validation_arr = model.evaluate(np.array([[-0.01,-0.2]]), np.array([2]))
 # print("Validation loss: " + str(validation_arr[0]) + "\nValidation accuracy: " + str(validation_arr[1]))
@@ -123,18 +127,27 @@ plt.legend(['train', 'validation'], loc='upper left')
 plt.show()
 
 
-array = [[1539, 3,    0,   13,   40,    0,    0,    0],
- [   1, 1600,    6,    0,    0,    3,    0,    0],
- [   0,    0, 1472,    3,    0,    0,   27,    0],
- [   0,    0,    2, 1591,    1,    0,    0,   32],
- [   4,    0,    0,    0,  888,    0,    0,    0],
- [   0,   18,    0,    0,    0,  925,    0,    0],
- [   0,    0,    1,    0,    0,    0,  883,    0],
- [   0,    0,    0,    9,    0,    0,    0,  939]]
+#Pred vs real
+prediction=model.predict_classes(x_test)
 
-df_cm = pd.DataFrame(array, range(8), range(8))
-# plt.figure(figsize=(10,7))
-sn.set(font_scale=1.4) # for label size
-sn.heatmap(df_cm, annot=True, annot_kws={"size": 8}) # font size
+colors = ["#FFFF00","#808000","#00FF00","#008000","#00FFFF","#008080","#0000FF","#000080"]
+
+data = np.array(x_test)
+x, y = data.T
+color_indices = prediction
+
+colormap = matplotlib.colors.ListedColormap(colors)
+
+plt.scatter(x, y, c=color_indices, cmap=colormap)
+plt.show()
+
+cm = confusion_matrix(y_test, prediction)
+
+print(cm)
+
+
+df_cm = pd.DataFrame(cm, range(8), range(8))
+plt.figure(figsize=(10,7))
+sn.heatmap(df_cm, annot=True, cmap='Blues', fmt='g') # font size
 
 plt.show()

@@ -55,3 +55,4 @@ plt.show()
 # print("Validation loss: " + str(validation_arr[0]) + "\nValidation accuracy: " + str(validation_arr[1]))
 
 
+
